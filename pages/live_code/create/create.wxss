@@ -1,1 +1,18 @@
 /* pages/live_code/create/create.wxss */
+.title {
+  padding-top: 20rpx;
+}
+
+.main {
+  padding-top: 20rpx;
+  width: 80%;
+}
+
+.main .section {
+  padding-top: 30rpx;
+  border-bottom: 1rpx solid #aaa;
+}
+
+.main .section text {
+  padding-bottom: 15rpx; 
+}

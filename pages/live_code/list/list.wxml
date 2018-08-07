@@ -1,5 +1,39 @@
 <!--pages/live_code/list/list.wxml-->
 <view class="container">
-  
+
+  <view class='main'>
+
+
+    <view class='one'>
+      <view class='title'>
+        <text>标题</text>
+      </view>
+      <view class='date'>
+        <text>2018-08-07</text>
+      </view>
+      <view class='section'>
+        <view class='section-left'>
+          <image></image>
+        </view>
+        <view class='section-right'>
+          <view class='section-a'>
+            <text>图片: 0张</text>
+            <text>最大值: 100次</text>
+            <text>扫描: 0次</text>
+          </view>
+          <view class='section-b'>
+            <button>保存到手机</button>
+            <button>编辑</button>
+            <button>删除</button>
+          </view>
+
+        </view>
+      </view>
+    </view>
+
+
+  </view>
+
+
 
 </view>

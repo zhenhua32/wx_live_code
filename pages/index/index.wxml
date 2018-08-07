@@ -14,7 +14,7 @@
       </navigator>
     </view>
     <view>
-      <navigator url='/pages/live_code/manage/manage'>
+      <navigator url='/pages/live_code/list/list'>
         <text>管理活码</text>
       </navigator>
     </view>

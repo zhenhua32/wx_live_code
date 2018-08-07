@@ -4,7 +4,7 @@
     <text>填写信息</text>
   </view>
 
-  <view>
+  <view class='main'>
     <form class='step1' bindsubmit='submitHandler'>
 
       <view class='section'>
@@ -14,7 +14,7 @@
 
       <view class='section'>
         <text>扫描最大次数: </text>
-        <input name='count' type='number' confirm-type='next' />
+        <input name='max' type='number' value='100' confirm-type='next' />
       </view>
       <!-- 下面的 picker 并没有使用 -->
       <view class='section'>
