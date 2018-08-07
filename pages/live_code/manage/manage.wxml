@@ -1,0 +1,43 @@
+<!--pages/live_code/manage/manage.wxml-->
+<view class="container">
+  <view class='title'>
+    <text>添加二维码</text>
+  </view>
+
+  <view class='qrcode-base'>
+
+    <view class='section'>
+      <image src=''></image>
+    </view>
+
+    <view class='section'>
+      <text>活码ID: </text>
+    </view>
+
+    <view class='section'>
+      <text>活码标题: </text>
+      <input name='title' value='' type='text' maxlength='20' />
+    </view>
+
+    <view class='section'>
+      <text>扫描最大次数: </text>
+      <input name='count' type='number' confirm-type='next' />
+    </view>
+
+  </view>
+
+  <view class='qrcode-list'>
+    <view class='section'>
+      <image></image>
+      <text>序号: {{}}</text>
+      <text>已扫描: {{}}</text>
+      <text>日期: </text>
+    </view>
+  </view>
+
+  <view class='qrcode-add'>
+    <text>点击下面的按钮上传二维码</text>
+    <button>添加二维码</button>
+  </view>
+
+</view>

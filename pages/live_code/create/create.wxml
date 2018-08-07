@@ -1,0 +1,35 @@
+<!--pages/live_code/create/create.wxml-->
+<view class='container'>
+  <view class='title'>
+    <text>填写信息</text>
+  </view>
+
+  <view>
+    <form class='step1' bindsubmit='submitHandler'>
+
+      <view class='section'>
+        <text>活码标题: </text>
+        <input name='title' placeholder="在这里填写活码标题" type='text' maxlength='20' focus confirm-type='next' />
+      </view>
+
+      <view class='section'>
+        <text>扫描最大次数: </text>
+        <input name='count' type='number' confirm-type='next' />
+      </view>
+      <!-- 下面的 picker 并没有使用 -->
+      <view class='section'>
+        <text>活码类型: </text>
+        <picker mode='selector' value='{{index}}' range='{{liveCodeType}}'>
+          <view class="picker">
+            {{liveCodeType[index]}}
+          </view>
+        </picker>
+      </view>
+
+      <view class='section'>
+        <button formType="submit">下一步</button>
+      </view>
+    </form>
+  </view>
+
+</view>
