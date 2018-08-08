@@ -7,8 +7,8 @@ Page({
    * 页面的初始数据
    */
   data: {
-    'liveCodeType': ['微信活码'],
-    'index': 0
+    liveCodeType: ['微信活码'],
+    index: 0
   },
   submitHandler: function(e) {
     let data = e.detail.value

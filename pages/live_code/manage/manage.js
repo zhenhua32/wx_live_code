@@ -12,17 +12,17 @@ Page({
       src: '',
       id: '170',
       title: '我是标题',
-      max: 120
+      maxScan: 120
     },
-    img_list: [
+    imgList: [
       {
         src: '1',
-        count: 10,
+        scan: 10,
         date: '2018-08-08'
       },
       {
         src: '2',
-        count: 11,
+        scan: 11,
         date: '2018-08-08'
       }
     ]
@@ -52,35 +52,67 @@ Page({
       })
     }
     this.setData({
-      'qrcode.max': value
+      'qrcode.maxScan': value
     })
   },
   deleteImg: function(e) {
     console.log(e)
-    let index = e.target.id
-    let img_list = this.data.img_list
-    img_list.splice(index, 1)
+    let index = e.target.dataset.index
+    let imgList = this.data.imgList
+    imgList.splice(index, 1)
     this.setData({
-      'img_list': img_list
+      'imgList': imgList
     })
   },
   addImg: function(e) {
     wx.chooseImage({
       count: 9,
       success: res => {
-        let img_list = this.data.img_list
+        let imgList = this.data.imgList
         let tempFilePaths = res.tempFilePaths
         console.log(tempFilePaths)
         for (let i in tempFilePaths) {
-          img_list.push({
+          imgList.push({
             src: tempFilePaths[i],
             count: 0,
             date: util.formatTime(new Date())
           })
         }
         this.setData({
-          'img_list': img_list
+          'imgList': imgList
         })
+      }
+    })
+  },
+  saveAll: function(e) {
+    let data = this.data
+    // 交互的结构还是需要设计
+    // 保存基本信息
+    wx.request({
+      url: '',
+      method: 'POST',
+      data: data.qrcode,
+      header: {},
+      success: res => {
+
+      },
+      fail: res => {
+        console.log(res)
+      }
+    })
+    // 上传图片, 每次只能传一张
+    wx.uploadFile({
+      url: '',
+      filePath: '',
+      name: 'file',
+      formData: {
+        'user': 'test'
+      },
+      success: res => {
+        let data = res.data
+      },
+      fail: res => {
+        console.log(res)
       }
     })
   },
@@ -89,7 +121,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-  
+    // todo, 需要接受一个参数, 表示编辑什么
   },
 
   /**

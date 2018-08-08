@@ -2,29 +2,27 @@
 <view class="container">
 
   <view class='main'>
-
-
-    <view class='one'>
+    <view class='one' wx:for='{{liveCodeList}}' wx:key='index'>
       <view class='title'>
-        <text>标题</text>
+        <text>{{item.title}}</text>
       </view>
       <view class='date'>
-        <text>2018-08-07</text>
+        <text>{{item.date}}</text>
       </view>
       <view class='section'>
         <view class='section-left'>
-          <image></image>
+          <image src='{{item.src}}'></image>
         </view>
         <view class='section-right'>
           <view class='section-a'>
-            <text>图片: 0张</text>
-            <text>最大值: 100次</text>
-            <text>扫描: 0次</text>
+            <text>图片: {{item.imgCount}}张</text>
+            <text>阈值: {{item.maxScan}}次</text>
+            <text>总扫描: {{item.allScan}}次</text>
           </view>
           <view class='section-b'>
-            <button>保存到手机</button>
-            <button>编辑</button>
-            <button>删除</button>
+            <button bindtap='saveLiveCode' data-index='{{index}}'>保存到手机</button>
+            <button bindtap='editLiveCode' data-id='{{item.id}}'>编辑</button>
+            <button bindtap='deleteLiveCode' data-index='{{index}}' data-id='{{item.id}}'>删除</button>
           </view>
 
         </view>

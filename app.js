@@ -6,6 +6,7 @@ App({
     logs.unshift(Date.now())
     wx.setStorageSync('logs', logs)
 
+    // 保存用户信息
     var userInfo = wx.getStorageSync('userInfo') || null
     this.globalData.userInfo = userInfo
 
@@ -20,6 +21,6 @@ App({
   },
   globalData: {
     userInfo: null,
-    host: 'https://wx.lawyerstuan.com'
+    host: 'http://192.168.1.111'
   }
 })

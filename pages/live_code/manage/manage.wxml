@@ -24,25 +24,25 @@
 
     <view class='section'>
       <text>扫描最大次数: </text>
-      <input name='count' bindconfirm='changeMax' value='{{qrcode.max}}' type='number' confirm-type='next' />
+      <input name='maxScan' bindconfirm='changeMax' value='{{qrcode.maxScan}}' type='number' confirm-type='next' />
     </view>
 
   </view>
 
-  <view class='qrcode-list' wx:for='{{img_list}}' wx:key='src'>
-    <view class='one'>
+  <view class='qrcode-list'>
+    <view class='one' wx:for='{{imgList}}' wx:key='src'>
       <view class='one-left'>
         <image src='{{item.src}}'></image>
       </view>
 
       <view class='one-center'>
         <text>序号: {{index}}</text>
-        <text>已扫描: {{item.count}}</text>
+        <text>已扫描: {{item.scan}}</text>
         <text>日期: {{item.date}}</text>
       </view>
 
       <view class='one-right'>
-        <button bindtap='deleteImg' id='{{index}}'>删除</button>
+        <button bindtap='deleteImg' data-index='{{index}}'>删除</button>
       </view>
     </view>
   </view>
@@ -53,7 +53,7 @@
   </view>
 
   <view class='qrcode-save'>
-    <button>保存</button>
+    <button bindtap='saveAll'>保存</button>
   </view>
 
 </view>
