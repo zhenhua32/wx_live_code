@@ -19,6 +19,7 @@ App({
     })
   },
   globalData: {
-    userInfo: null
+    userInfo: null,
+    host: 'https://wx.lawyerstuan.com'
   }
 })

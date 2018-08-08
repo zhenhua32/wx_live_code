@@ -1,1 +1,91 @@
 /* pages/live_code/manage/manage.wxss */
+.qrcode-base {
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+  padding-top: 40rpx;
+}
+
+.qrcode-base .image {
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.qrcode-base image {
+  border: 1rpx solid #aaa;
+  width: 300rpx;
+  height: 300rpx;
+}
+
+.qrcode-base .section {
+  width: 90%;
+  margin: auto;
+  display: flex;
+  flex-direction: row;
+  font-size: 30rpx;
+  padding-top: 20rpx;
+}
+
+.qrcode-base .section text {
+  width: 40%;
+}
+
+.qrcode-list {
+  display: flex;
+  flex-direction: column;
+  width: 90%;
+}
+
+.qrcode-list .one {
+  display: flex;
+  flex-direction: row;
+  padding-top: 40rpx;
+}
+
+.one-left image {
+  width: 180rpx;
+  height: 180rpx;
+  border: 1rpx solid #aaa;
+  margin: auto;
+}
+
+.one-center {
+  display: flex;
+  flex-direction: column;
+  padding-left: 20rpx;
+  font-size: 30rpx;
+}
+
+.one-right {
+  margin-left: auto;
+  min-width: 120rpx;
+}
+
+.one-right button {
+  font-size: 30rpx;
+}
+
+.qrcode-add {
+  padding-top: 20rpx;
+  width: 90%;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.qrcode-add text {
+  margin: auto;
+  font-size: 30rpx;
+}
+
+.qrcode-add button {
+  margin: auto;
+  margin-top: 20rpx;
+}
+
+.qrcode-save {
+  padding-top: 40rpx;
+}
+

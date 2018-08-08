@@ -1,4 +1,6 @@
 // pages/live_code/list/list.js
+const app = getApp()
+
 Page({
 
   /**
