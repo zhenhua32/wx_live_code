@@ -32,19 +32,19 @@ Page({
     }
 
     wx.request({
-      url: '',
+      url: app.globalData.host + '/wx/user/live_code',
       method: 'POST',
       data: data,
       header: {
-        
+        'session_id': app.globalData.session_id
       },
       success: function(res) {
         console.log(res.data)
 
         // 跳转到编辑页面, 注意获取数据
-        wx.navigateTo({
-          url: '/pages/live_code/manage/manage',
-        })
+        // wx.navigateTo({
+        //   url: '/pages/live_code/manage/manage',
+        // })
       },
       fail: function(res) {
         console.log(res)
@@ -108,6 +108,18 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
-  
+    return {
+      path: '/pages/index/index',
+      success: function (res) {
+        // 转发成功
+        wx.showToast({
+          title: '分享成功',
+          icon: 'none'
+        })
+      },
+      fail: function (res) {
+        // 转发失败
+      }
+    }
   }
 })
