@@ -41,10 +41,12 @@ Page({
       success: function(res) {
         console.log(res.data)
 
+        let live_code_id = res.data.data.id
+
         // 跳转到编辑页面, 注意获取数据
-        // wx.navigateTo({
-        //   url: '/pages/live_code/manage/manage',
-        // })
+        wx.navigateTo({
+          url: '/pages/live_code/manage/manage?live_code_id='+live_code_id,
+        })
       },
       fail: function(res) {
         console.log(res)

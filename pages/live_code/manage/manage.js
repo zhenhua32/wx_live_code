@@ -8,24 +8,14 @@ Page({
    * 页面的初始数据
    */
   data: {
+    live_code_id: null,
     qrcode: {
       src: '',
       id: '170',
       title: '我是标题',
       maxScan: 120
     },
-    imgList: [
-      {
-        src: '1',
-        scan: 10,
-        date: '2018-08-08'
-      },
-      {
-        src: '2',
-        scan: 11,
-        date: '2018-08-08'
-      }
-    ]
+    imgList: []
   },
 
   changeTitle: function(e) {
@@ -72,11 +62,36 @@ Page({
         let tempFilePaths = res.tempFilePaths
         console.log(tempFilePaths)
         for (let i in tempFilePaths) {
-          imgList.push({
-            src: tempFilePaths[i],
-            count: 0,
-            date: util.formatTime(new Date())
+          // 上传到服务器上
+          wx.uploadFile({
+            url: app.globalData.host + '/wx/user/img',
+            filePath: tempFilePaths[i],
+            name: 'img',
+            header: {
+              'session_id': app.globalData.session_id
+            },
+            formData: {
+              'live_code_id': this.data.live_code_id
+            },
+            success: res => {
+              console.log(res)
+              // 成功则添加到列表中
+              imgList.push({
+                src: app.globalData.host + res.data.data.src[0],
+                count: 0,
+                date: util.formatTime(new Date())
+              })
+            },
+            fail: res => {
+              console.log(res)
+              wx.showToast({
+                title: '上传图片失败, 稍后再试',
+                icon: 'none',
+                duration: 2000
+              })
+            }
           })
+
         }
         this.setData({
           'imgList': imgList
@@ -121,7 +136,50 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    // todo, 需要接受一个参数, 表示编辑什么
+    let live_code_id = options.live_code_id
+    // 判断是否有 live_code_id 参数
+    if (!live_code_id) {
+      wx.navigateBack({
+        url: '/pages/index/index'
+      })
+    } else {
+      // 获取所需的数据
+      wx.request({
+        url: app.globalData.host + '/wx/user/live_code?id=' + live_code_id,
+        method: 'GET',
+        header: {
+          'session_id': app.globalData.session_id
+        },
+        success: res => {
+          console.log(res.data)
+          let one = res.data.data.result[0]
+          let img_ids = one['img']
+          let imgList = []
+
+          for (let i in img_ids) {
+            imgList.push({
+              src: app.globalData.host + i,
+              scan: img_ids[i],
+              date: '2018-08-08'
+            })
+          }
+
+          this.setData({
+            'live_code_id': live_code_id,
+            'qrcode': {
+              'src': app.globalData.host + one['src'],
+              'id': live_code_id,
+              'title': one['title'],
+              'maxScan': one['max_scan']
+            },
+            'imgList': imgList
+          })
+        },
+        fail: res => {
+          console.log(res.data)
+        }
+      })
+    }
   },
 
   /**

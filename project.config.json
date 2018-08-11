@@ -33,7 +33,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 2,
+			"current": 1,
 			"list": [
 				{
 					"id": -1,
@@ -42,7 +42,7 @@
 					"query": ""
 				},
 				{
-					"id": -1,
+					"id": 1,
 					"name": "manage",
 					"pathName": "pages/live_code/manage/manage",
 					"query": ""
@@ -50,7 +50,8 @@
 				{
 					"id": -1,
 					"name": "list",
-					"pathName": "pages/live_code/list/list"
+					"pathName": "pages/live_code/list/list",
+					"query": ""
 				}
 			]
 		}

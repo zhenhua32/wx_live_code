@@ -40,6 +40,6 @@ App({
   globalData: {
     userInfo: null,
     host: 'http://192.168.1.111:8080',
-    session_id: null
+    session_id: 'oS_iQ0dQxRiTKPomeBvD7wH7-x0k'
   }
 })

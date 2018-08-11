@@ -26,5 +26,5 @@ Page({
 
     var userInfo = wx.getStorageSync('userInfo') || null
     wx.setStorageSync('userInfo', e.detail.userInfo)
-  }
+  },
 })
