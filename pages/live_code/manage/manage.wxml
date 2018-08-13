@@ -9,7 +9,7 @@
 
     <view class='image'>
       <image src='{{qrcode.src}}'></image>
-      <text>下载活码</text>
+      <text bindtap='saveLiveCode'>下载活码</text>
     </view>
 
     <view class='section'>

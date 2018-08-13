@@ -16,6 +16,18 @@ const formatNumber = n => {
   return n[1] ? n : '0' + n
 }
 
+function fail(res, msg) {
+  // 方便是方便, 不写第二个参数也行
+  console.log(res)
+  wx.showToast({
+    title: msg || res.errMsg,
+    icon: 'none',
+    duration: 3000
+  })
+}
+
+
 module.exports = {
-  formatTime: formatTime
+  formatTime: formatTime,
+  fail: fail
 }

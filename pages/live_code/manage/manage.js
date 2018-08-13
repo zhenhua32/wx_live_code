@@ -45,14 +45,55 @@ Page({
       'qrcode.maxScan': value
     })
   },
+  saveLiveCode: function(e) {
+    wx.downloadFile({
+      url: this.data.qrcode.src,
+      success: res => {
+        if (res.statusCode === 200) {
+          wx.saveImageToPhotosAlbum({
+            filePath: res.tempFilePath,
+            success: res => {
+              console.log('hello save')
+              console.log(res)
+            },
+            fail: util.fail
+          })
+        } else {
+          return util.fail(res, '下载失败')
+        }
+      },
+      fail: util.fail
+    })
+  },
   deleteImg: function(e) {
     console.log(e)
     let index = e.target.dataset.index
     let imgList = this.data.imgList
-    imgList.splice(index, 1)
-    this.setData({
-      'imgList': imgList
+    
+    wx.request({
+      url: app.globalData.host + '/wx/user/img',
+      method: 'DELETE',
+      header: {
+        'session_id': app.globalData.session_id
+      },
+      data: {
+        'ids': [imgList[index]['id']],
+        'live_code_id': this.data.live_code_id
+      },
+      success: res => {
+        if (res.data.errcode != 0) {
+          return util.fail(res, res.data.msg)
+        }
+
+        imgList.splice(index, 1)
+        this.setData({
+          'imgList': imgList
+        })
+      },
+      fail: util.fail
     })
+
+    
   },
   addImg: function(e) {
     wx.chooseImage({
@@ -60,7 +101,6 @@ Page({
       success: res => {
         let imgList = this.data.imgList
         let tempFilePaths = res.tempFilePaths
-        console.log(tempFilePaths)
         for (let i in tempFilePaths) {
           // 上传到服务器上
           wx.uploadFile({
@@ -74,61 +114,33 @@ Page({
               'live_code_id': this.data.live_code_id
             },
             success: res => {
-              console.log(res)
+              if (res.data.errcode != 0) {
+                return util.fail(res, res.data.msg)
+              }
+
+              // uploadFile 不会自动调用 JSON.parse
+              let data = JSON.parse(res.data).data.img[0]
               // 成功则添加到列表中
               imgList.push({
-                src: app.globalData.host + res.data.data.src[0],
-                count: 0,
-                date: util.formatTime(new Date())
+                src: app.globalData.host + data['src'],
+                count: data['scan'],
+                date: data['date']
+              })
+              this.setData({
+                'imgList': imgList
               })
             },
-            fail: res => {
-              console.log(res)
-              wx.showToast({
-                title: '上传图片失败, 稍后再试',
-                icon: 'none',
-                duration: 2000
-              })
-            }
+            fail: util.fail
           })
-
         }
-        this.setData({
-          'imgList': imgList
-        })
-      }
+      },
+      fail: util.fail
     })
   },
   saveAll: function(e) {
-    let data = this.data
-    // 交互的结构还是需要设计
-    // 保存基本信息
-    wx.request({
-      url: '',
-      method: 'POST',
-      data: data.qrcode,
-      header: {},
-      success: res => {
-
-      },
-      fail: res => {
-        console.log(res)
-      }
-    })
-    // 上传图片, 每次只能传一张
-    wx.uploadFile({
-      url: '',
-      filePath: '',
-      name: 'file',
-      formData: {
-        'user': 'test'
-      },
-      success: res => {
-        let data = res.data
-      },
-      fail: res => {
-        console.log(res)
-      }
+    // 这边只是单纯的跳转, 不会其他处理, 包括修改标题
+    wx.redirectTo({
+      'url': '/pages/live_code/list/list'
     })
   },
 
@@ -158,12 +170,13 @@ Page({
 
           for (let i in img_ids) {
             imgList.push({
-              src: app.globalData.host + i,
-              scan: img_ids[i],
-              date: '2018-08-08'
+              id: img_ids[i]['id'],
+              src: app.globalData.host + img_ids[i]['src'],
+              scan: img_ids[i]['scan'],
+              date: img_ids[i]['date']
             })
           }
-
+          
           this.setData({
             'live_code_id': live_code_id,
             'qrcode': {
@@ -176,7 +189,12 @@ Page({
           })
         },
         fail: res => {
-          console.log(res.data)
+          console.log(res)
+          wx.showToast({
+            title: '载入失败',
+            icon: 'none',
+            duration: 3000
+          })
         }
       })
     }

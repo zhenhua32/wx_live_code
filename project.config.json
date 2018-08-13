@@ -45,7 +45,7 @@
 					"id": 1,
 					"name": "manage",
 					"pathName": "pages/live_code/manage/manage",
-					"query": ""
+					"query": "live_code_id=5b713c7d3417f3d7858e457d"
 				},
 				{
 					"id": -1,
