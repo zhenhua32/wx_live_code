@@ -33,7 +33,7 @@ Page({
 
     wx.request({
       url: app.globalData.host + '/wx/user/live_code',
-      method: 'POST',
+      method: 'PUT',
       data: data,
       header: {
         'session_id': app.globalData.session_id

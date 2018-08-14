@@ -114,17 +114,19 @@ Page({
               'live_code_id': this.data.live_code_id
             },
             success: res => {
-              if (res.data.errcode != 0) {
-                return util.fail(res, res.data.msg)
+              // uploadFile 不会自动调用 JSON.parse
+              let data = JSON.parse(res.data)
+              let img = data.data.img[0]
+
+              if (data.errcode != 0) {
+                return util.fail(res, data.msg)
               }
 
-              // uploadFile 不会自动调用 JSON.parse
-              let data = JSON.parse(res.data).data.img[0]
               // 成功则添加到列表中
               imgList.push({
-                src: app.globalData.host + data['src'],
-                count: data['scan'],
-                date: data['date']
+                src: app.globalData.host + img['src'],
+                count: img['scan'],
+                date: img['date']
               })
               this.setData({
                 'imgList': imgList
@@ -138,10 +140,30 @@ Page({
     })
   },
   saveAll: function(e) {
-    // 这边只是单纯的跳转, 不会其他处理, 包括修改标题
-    wx.redirectTo({
-      'url': '/pages/live_code/list/list'
+    // 保存标题和最大扫描次数的更新
+    wx.request({
+      url: app.globalData.host + '/wx/user/live_code',
+      method: 'POST',
+      header: {
+        'session_id': app.globalData.session_id
+      },
+      data: {
+        'id': this.data.live_code_id,
+        'title': this.data.qrcode.title,
+        'max': this.data.qrcode.maxScan
+      },
+      success: res => {
+        console.log(res)
+        if (res.data.errcode != 0) {
+          return util.fail(res, res.data.msg)
+        }
+        wx.switchTab({
+          'url': '/pages/live_code/list/list'
+        })
+      },
+      fail: util.fail
     })
+    
   },
 
   /**
@@ -151,9 +173,7 @@ Page({
     let live_code_id = options.live_code_id
     // 判断是否有 live_code_id 参数
     if (!live_code_id) {
-      wx.navigateBack({
-        url: '/pages/index/index'
-      })
+      wx.navigateBack({})
     } else {
       // 获取所需的数据
       wx.request({
@@ -176,7 +196,7 @@ Page({
               date: img_ids[i]['date']
             })
           }
-          
+
           this.setData({
             'live_code_id': live_code_id,
             'qrcode': {
@@ -188,14 +208,7 @@ Page({
             'imgList': imgList
           })
         },
-        fail: res => {
-          console.log(res)
-          wx.showToast({
-            title: '载入失败',
-            icon: 'none',
-            duration: 3000
-          })
-        }
+        fail: util.fail
       })
     }
   },
@@ -211,7 +224,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-  
+    
   },
 
   /**

@@ -14,7 +14,7 @@
       </navigator>
     </view>
     <view>
-      <navigator url='/pages/live_code/list/list'>
+      <navigator url='/pages/live_code/list/list' open-type='switchTab'>
         <text>管理活码</text>
       </navigator>
     </view>

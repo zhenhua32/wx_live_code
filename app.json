@@ -6,6 +6,15 @@
     "pages/live_code/manage/manage",
     "pages/live_code/list/list"
   ],
+  "tabBar": {
+    "list": [{
+      "pagePath": "pages/index/index",
+      "text": "首页"
+    }, {
+      "pagePath": "pages/live_code/list/list",
+      "text": "列表"
+    }]
+  },
   "window": {
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#fff",
